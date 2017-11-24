@@ -30,15 +30,14 @@ public class Perceptron {
             for(int j =0;j<s;j++) //
             {
                 int saida = Saida(entradas[j]); // aqui o vetor saida recebe o retorno da função de ativação
-                int erro = saidas[j] - saida; // aqui comparo com o valor esperado
+                int erro = saidas[j] - saida; // aqui calculo o erro: valor esperado - valor calculado
                 
-                totalErro +=erro; //calculo o novo erro
-               
+                totalErro +=erro; //totalErro recebe o erro calculado acima
+            
                 for(int k = 0;k<e;k++)
                 {
-                    double delta = aprendizado * entradas[j][k] * erro; //cacula delta para 
-                    pesos[k] += delta;
-                }    
+                    double delta = pesos[k] + aprendizado * entradas[j][k] * erro; //cacula delta para usar em pesos
+                } 
             }
             if(totalErro == 0) //quando total for zero, para de recalcular os pesos
                 break;
