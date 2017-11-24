@@ -1,6 +1,5 @@
 package perceptron;
 import java.util.Random;
-
 /**
  *
  * @author Poliana
@@ -9,17 +8,17 @@ public class Perceptron {
 
     double limite;
     double[] pesos;
-    public void A(double[][] entradas, int[] saidas, double limite, double learnrate, int ciclos)
+    public void A(double[][] entradas, int[] saidas, double limite, double aprendizado, int ciclos)
     {
 
         this.limite = limite;
         Random r = new Random(); // definido para gerar valores aleatórios
-        int n = entradas[0].length; // n é o número de entradas
-        int p = saidas.length; // p é o numero de saídas
-        pesos = new double[n]; //o vetor peso tera tamanho N que é o numero de entradas
+        int e = entradas[0].length; // n é o número de entradas
+        int s = saidas.length; // s é o numero de saídas
+        pesos = new double[e]; //o vetor peso tera tamanho E que é o numero de entradas
         
         //aqui gero os pesos aleatórios para começar
-        for(int i=0;i<n;i++)
+        for(int i=0;i<e;i++)
         {
             pesos[i] = r.nextDouble(); //armazeno os valores aleátorios no vetor peso
         }
@@ -28,22 +27,22 @@ public class Perceptron {
         for(int i=0;i<ciclos;i++) //para parar quando atingir o numero maximo de ciclos
         {
             int totalErro = 0; //inicia erro igual a 0
-            for(int j =0;j<p;j++) //
+            for(int j =0;j<s;j++) //
             {
-                int saida = Saida(entradas[j]); // aqui o vetor saida recebe o retorno da saida
+                int saida = Saida(entradas[j]); // aqui o vetor saida recebe o retorno da função de ativação
                 int erro = saidas[j] - saida; // aqui comparo com o valor esperado
                 
                 totalErro +=erro; //calculo o novo erro
                
-                for(int k = 0;k<n;k++)
+                for(int k = 0;k<e;k++)
                 {
-                    double delta = learnrate * entradas[j][k] * erro; //cacula delta para 
+                    double delta = aprendizado * entradas[j][k] * erro; //cacula delta para 
                     pesos[k] += delta;
                 }    
             }
             if(totalErro == 0) //quando total for zero, para de recalcular os pesos
                 break;
-        }
+        } 
     }
     public int Saida (double[] entrada)
     {
